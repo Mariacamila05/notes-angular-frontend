@@ -1,0 +1,45 @@
+<div class="flex flex-col bg-gray-50 dark:bg-gray-900 h-screen">
+    <div class="flex mx-8 my-2">
+        <a [routerLink]="'/notes/create'"
+            class="rounded-lg bg-green-400 hover:bg-green-600 transition-all w-32 h-8 text-white flex items-center justify-center">
+            Crear nota
+        </a>
+    </div>
+
+    <div class="flex mx-8 overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 ">
+            <thead class="text-xs  uppercase bg-gray-100 text-gray-700">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Titulo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Descripcion
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Fecha de creacion
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Fecha de actualizacion
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-gray-100 text-gray-700 dark:bg-gray-300 dark:text-black">
+                <tr *ngFor="let note of notes" class="bg-white border-b">
+                    <td class="py-2 px-4">{{ note.title }}</td>
+                    <td class="py-2 px-4">{{ note.description }}</td>
+                    <td class="py-2 px-4">{{ note.created_at | date:'dd/MM/yyyy' }}</td>
+                    <td class="py-2 px-4">{{ note.updated_at | date:'dd/MM/yyyy' }}</td>
+                    <td class="px-6 py-4">
+                        <a [routerLink]="['edit', note.id]" class="font-medium hover:underline pr-2">Editar</a>
+                        <button (click)="delete(note.id)" class="font-medium hover:underline">Eliminar</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

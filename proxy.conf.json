@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "https://backend-ws-notes.onrender.com",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
