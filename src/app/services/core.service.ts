@@ -15,7 +15,6 @@ export class CoreService {
       this.urlServicesBD = environmentProd.API_URL;
     }
 
-    console.log(this.urlServicesBD)
     console.log('Aplication ready ✅');
   }
 }
