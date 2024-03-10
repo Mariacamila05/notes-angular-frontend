@@ -5,10 +5,11 @@ import { RouterModule } from '@angular/router';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ToastComponent } from '../shared/toast/toast.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent,ToastComponent ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, RouterModule],
   exports: [LoginComponent, RegisterComponent],
 })

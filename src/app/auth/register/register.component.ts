@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { handleToast } from 'src/app/shared/toast/toast.component';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,10 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   formRegister: FormGroup = new FormGroup({});
+  handleToastLogin: handleToast = {
+    message: '',
+    type: 'success',
+  };
 
   constructor(private fb: FormBuilder, private authService: AuthService,  private router: Router) {}
 
@@ -27,7 +32,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.formRegister.invalid) {
-      return;
+      this.handleToastLogin = {
+        message: 'All fields are required',
+        type: 'error',
+      };
     }
 
     const { fullName, email, password } = this.formRegister.value;
@@ -41,8 +49,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
       if (this.authService.isLoggedIn()) {
         this.router.navigate(['/notes']);
       }
-
-    });
+      
+    },
+    (error) => {
+      console.log(error.error.message);
+      this.handleToastLogin = {
+        message: error.error.message,
+        type: 'error',
+      };});
 
   }
 }

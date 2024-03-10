@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  sonarqube:
+    image: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    volumes:
+      - ./sonarqube/data:/opt/sonarqube/data
+      - ./sonarqube/extensions:/opt/sonarqube/extensions
+      - ./sonarqube/logs:/opt/sonarqube/logs
+
+  sonarqube-source:
+    image: sonarsource/sonar-scanner-cli
+    ports:
+      - "9001:9000"
+    depends_on:
+      - sonarqube
+    environment:
+      - SONAR_HOST_URL="http://localhost:9000"
+      - SONAR_SCANNER_OPTS="-Dsonar.projectKey=NOTES-ANGULAR-MAIN"
+      - SONAR_TOKEN="sqp_cdcff4a5ece02f2c5e2005a7dbda983e43a8253b"
+    
+ 
