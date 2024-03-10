@@ -34,7 +34,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      return;
+      this.handleToastLogin = {
+        message: 'Verify your email and password',
+        type: 'error',
+      };
     }
 // Acá poner mensajes de error try catch
     const { email, password } = this.loginForm.value;
