@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotesService } from '../notes.service';
 
 @Component({
-  selector: 'app-note-detail',
-  templateUrl: './note-detail.component.html',
-  styleUrls: ['./note-detail.component.scss'],
+  selector: 'app-note-editor',
+  templateUrl: './note-editor.component.html',
+  styleUrls: ['./note-editor.component.scss'],
 })
-export class NoteDetailComponent implements OnInit {
+export class NoteEditorComponent implements OnInit {
   editForm: FormGroup = new FormGroup({});
 
   constructor(
@@ -16,7 +16,7 @@ export class NoteDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private readonly notesService: NotesService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.editForm = this.fb.group({
@@ -27,13 +27,15 @@ export class NoteDetailComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
 
-      this.notesService.getNoteById(id!).then((res: any) => {
-        const { title, description } = res;
-        this.editForm = this.fb.group({
-          title: [title],
-          description: [description],
+      if (id !== 'new') {
+        this.notesService.getNoteById(id!).then((res: any) => {
+          const { title, description } = res;
+          this.editForm = this.fb.group({
+            title: [title],
+            description: [description],
+          });
         });
-      });
+      }
     });
   }
 
@@ -47,11 +49,24 @@ export class NoteDetailComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
 
+      if (id === 'new') {
+        this.notesService
+          .createNotes({ title, description })
+          .then((res: any) => {
+            this.router.navigate(['/notes']);
+          });
+        return;
+      }
+
       this.notesService
         .updateNotes(id!, { title, description })
         .then((res: any) => {
           this.router.navigate(['/notes']);
         });
     });
+  }
+
+  onCancel(): void {
+    this.router.navigate(['/notes']);
   }
 }

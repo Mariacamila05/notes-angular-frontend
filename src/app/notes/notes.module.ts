@@ -1,30 +1,31 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NotesRoutingModule } from './notes-routing.module';
-import { NoteDetailComponent } from './note-detail/note-detail.component';
-import { NotesListComponent } from './notes-list/notes-list.component';
-import { NotesCreateComponent } from './notes-create/notes-create.component';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { NoteEditorComponent } from './note-editor/note-editor.component';
+import { NotesListComponent } from './notes-list/notes-list.component';
+import { NotesRoutingModule } from './notes-routing.module';
 
 @NgModule({
-  declarations: [
-    NoteDetailComponent,
-    NotesListComponent,
-    NotesCreateComponent
-  ],
+  declarations: [NoteEditorComponent, NotesListComponent],
   imports: [
     CommonModule,
     NotesRoutingModule,
     TableModule,
     ButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    QuillModule.forRoot({
+      modules: {
+        toolbar: [
+          ['bold', 'italic', 'underline'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link'],
+        ],
+      },
+    }),
   ],
-  exports: [
-    NoteDetailComponent,
-    NotesListComponent,
-    NotesCreateComponent
-  ]
+  exports: [NoteEditorComponent, NotesListComponent],
 })
-export class NotesModule { }
+export class NotesModule {}

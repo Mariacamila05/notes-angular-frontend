@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NoteEditorComponent } from './note-editor/note-editor.component';
 import { NotesListComponent } from './notes-list/notes-list.component';
-import { NotesCreateComponent } from './notes-create/notes-create.component';
-import { NoteDetailComponent } from './note-detail/note-detail.component';
 
 const routes: Routes = [
   {
@@ -11,22 +10,18 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'create',
-    component: NotesCreateComponent,
-  },
-  {
-    path: 'edit/:id',
-    component: NoteDetailComponent,
-    pathMatch: 'full'
+    path: 'editor/:id',
+    component: NoteEditorComponent,
+    pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: 'auth'
-  }
+    redirectTo: 'auth',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class NotesRoutingModule { }
+export class NotesRoutingModule {}

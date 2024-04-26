@@ -10,9 +10,9 @@ export class NotesService implements OnInit {
   constructor(
     private readonly dbService: DbService,
     private readonly authService: AuthService
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   getNotes<T>(): Promise<T> {
     let vm = this;
@@ -51,6 +51,8 @@ export class NotesService implements OnInit {
 
   createNotes<T>(data: any): Promise<T> {
     let vm = this;
+
+    console.log({ data });
 
     return new Promise((resolve, reject) => {
       vm.dbService
