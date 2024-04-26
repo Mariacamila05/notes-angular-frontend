@@ -10,7 +10,7 @@ import { NotesService } from '../notes.service';
 })
 export class NoteEditorComponent implements OnInit {
   editForm: FormGroup = new FormGroup({});
-
+  isNew = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -26,8 +26,8 @@ export class NoteEditorComponent implements OnInit {
 
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
-
-      if (id !== 'new') {
+       id!== 'new'? this.isNew = false : this.isNew = true;
+           if (id !== 'new') {
         this.notesService.getNoteById(id!).then((res: any) => {
           const { title, description } = res;
           this.editForm = this.fb.group({
